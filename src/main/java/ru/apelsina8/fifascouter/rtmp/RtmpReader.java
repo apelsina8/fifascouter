@@ -30,7 +30,10 @@ public class RtmpReader {
 
         // Установка дополнительных параметров для RTMP
         grabber.setOption("rtmp_transport", "tcp"); // Использование TCP для транспорта RTMP
-        grabber.setFormat("flv"); // RTMP обычно использует контейнер FLV
+        grabber.setFormat("flv");
+        grabber.setOption("fflags", "nobuffer");  // Отключить буферизацию для уменьшения задержек
+        grabber.setOption("analyzeduration", "1000000");
+        grabber.setOption("probesize", "5000000");  // Уменьшение размера буфера
         grabber.start();
     }
 
