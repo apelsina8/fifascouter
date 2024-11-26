@@ -40,43 +40,10 @@ public class GameService {
     private String currentMatchUrl;
 
 
-    private final LinkedList<Integer> firstTeamScoreBuffer = new LinkedList<>();
-    private final LinkedList<Integer> secondTeamScoreBuffer = new LinkedList<>();
-    private final LinkedList<String> timeBuffer = new LinkedList<>();
-    private final int bufferSize = 49;  // Количество последних значений для хранения
-
     @Autowired
     public GameService(RtmpReader rtmpReader) {
         this.rtmpReader = rtmpReader;
     }
-
-    // Добавление данных в буфер
-    private void addToBuffer() {
-        if (firstTeamScoreBuffer.size() >= bufferSize || secondTeamScoreBuffer.size() >= bufferSize) {
-            firstTeamScoreBuffer.poll();  // Удаляем старейший элемент, если буфер переполнен
-            secondTeamScoreBuffer.poll();
-            timeBuffer.poll();
-        }
-        firstTeamScoreBuffer.add(firstTeamScore);
-        secondTeamScoreBuffer.add(secondTeamScore);
-        timeBuffer.add(time);
-    }
-
-    // Получение данных с буфером
-    public int getBufferedFirstTeamScore() {
-        // Отдаем последний элемент из буфера (самые старые данные)
-        return firstTeamScoreBuffer.isEmpty() ? 0 : firstTeamScoreBuffer.getFirst();
-    }
-
-    public int getBufferedSecondTeamScore() {
-        // Отдаем последний элемент из буфера (самые старые данные)
-        return secondTeamScoreBuffer.isEmpty() ? 0 : secondTeamScoreBuffer.getFirst();
-    }
-
-    public String getBufferedTime() {
-        return timeBuffer.isEmpty() ? "00:00" : timeBuffer.getFirst();
-    }
-
 
     public void start(String url) {
         try {
@@ -149,7 +116,6 @@ public class GameService {
                 firstTeamScore = newFirstTeamScore;
                 secondTeamScore = newSecondTeamScore;
 
-                addToBuffer();
                 sendMatchData(firstTeamScore, secondTeamScore, time);
 
                 if (!lastTime.equals(time)) {
