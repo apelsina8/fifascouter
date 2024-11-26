@@ -80,7 +80,7 @@
 
     function connect() {
         const streamUrl = document.getElementById("streamUrl").value;
-        socket = new WebSocket("ws://localhost:8080/match-data");
+        socket = new WebSocket("ws://147.45.146.8:8080//match-data");
 
         socket.onopen = () => {
             console.log("Connected to WebSocket");
