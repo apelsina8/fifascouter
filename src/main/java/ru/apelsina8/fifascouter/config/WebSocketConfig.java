@@ -20,6 +20,6 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(matchWebSocketHandler, "/match-data")
-                .setAllowedOrigins("localhost:8080"); // Установите свои домены вместо "*" для безопасности
+                .setAllowedOrigins("http://147.45.146.8:8080"); // Установите свои домены вместо "*" для безопасности
     }
 }
