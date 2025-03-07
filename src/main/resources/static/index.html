@@ -89,8 +89,7 @@
 
         socket.onmessage = (event) => {
             const output = document.getElementById("output");
-            // Здесь мы обновляем содержимое div с id="output"
-            output.innerHTML = event.data; // Получаем и обновляем данные о матче
+            output.innerHTML = event.data;
         };
 
         socket.onclose = () => {

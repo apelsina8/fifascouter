@@ -28,8 +28,7 @@ public class RtmpReader {
         this.url = url;
         this.grabber = new FFmpegFrameGrabber(url);
 
-        // Установка дополнительных параметров для RTMP
-        grabber.setOption("rtmp_transport", "tcp"); // Использование TCP для транспорта RTMP
+        grabber.setOption("rtmp_transport", "tcp");
         grabber.setFormat("flv");
         grabber.setOption("rtmp_buffer", "1000");
         grabber.setOption("analyzeduration", "1000000");

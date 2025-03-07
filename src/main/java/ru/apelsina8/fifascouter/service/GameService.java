@@ -49,7 +49,6 @@ public class GameService {
         try {
             this.currentMatchUrl = url;
             rtmpReader.setUrl(url);
-            // Запускаем захват кадров в отдельном потоке
             executor.submit(this::captureFrames);
 
         } catch (FFmpegFrameGrabber.Exception e) {
@@ -80,13 +79,11 @@ public class GameService {
 
 
 
-    // Метод для захвата кадров
     private void captureFrames() {
         try {
             while (true) {
                 BufferedImage image = rtmpReader.getFrameImage();
                 if (image != null) {
-                    // Отправляем кадры на обработку в другом потоке
                     executor.submit(() -> processFrame(image));
                 }
             }
@@ -95,7 +92,6 @@ public class GameService {
         }
     }
 
-    // Метод для обработки кадра
     private void processFrame(BufferedImage image) {
         try {
             time = scoreRecognizer.recognizeTime(image);

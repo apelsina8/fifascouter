@@ -21,14 +21,11 @@ public class MatchWebSocketHandler extends TextWebSocketHandler {
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        // Получаем URL трансляции от клиента
         String streamUrl = message.getPayload();
         System.out.println("Received stream URL: " + streamUrl);
 
-        // Передаем URL трансляции в GameService для начала обработки
         gameService.start(streamUrl);
 
-        // Сохраняем сессию, чтобы отправлять данные обратно клиенту
         gameService.addSession(session);
     }
 }
